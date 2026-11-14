@@ -2,363 +2,446 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <!-- ✅ FIX: viewport with shrink-to-fit + user-scalable for older iOS -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <!-- ✅ FIX: Proper Open Graph / share preview for WhatsApp and social -->
-    <meta name="description" content="تأكيد رسمي: هذا المنتج أصلي 100% ومعتمد من أبو سيفين.">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="هذا المنتج أصلي 100% — تأكيد رسمي من أبو سيفين">
     <meta property="og:title" content="هذا المنتج أصلي 100%">
     <meta property="og:description" content="تم التحقق من أصالة وجودة هذا المنتج رسمياً.">
-    <meta property="og:type" content="website">
-    <!-- ✅ FIX: Theme color for browser chrome on mobile -->
-    <meta name="theme-color" content="#0f172a">
-    <!-- ✅ FIX: Preload critical font to prevent FOUT (flash of unstyled text) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;800;900&display=swap" rel="stylesheet">
-    <!-- FontAwesome - defer non-critical -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
-    <!-- Canvas Confetti - async -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js" async></script>
-    <title>هذا المنتج أصلي 100% | أبو سيفين</title>
+    <title>هذا المنتج أصلي 100%</title>
     <style>
-        /* ===== CSS VARIABLES ===== */
-        :root {
-            --green: #10b981;
-            --green-dark: #059669;
-            --green-bg: #ecfdf5;
-            --green-text: #065f46;
-            --bg-dark: #0b1120;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #475569;
-            --border: #e2e8f0;
-            --radius-card: 28px;
-            --shadow: 0 20px 60px -15px rgba(0,0,0,0.3), 0 0 40px rgba(16,185,129,0.12);
-        }
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* ===== RESET ===== */
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* ===== BASE ===== */
         html {
-            /* ✅ FIX: prevent font inflation on mobile */
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
         }
 
         body {
-            font-family: 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: radial-gradient(circle at 50% 20%, #1a2744 0%, var(--bg-dark) 100%);
+            font-family: 'Cairo', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f0f4f8;
             min-height: 100vh;
-            /* ✅ FIX: use dvh for mobile browsers with address bar */
             min-height: 100dvh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            /* ✅ FIX: safe area padding for iPhone notch / home bar */
-            padding: max(20px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom));
-            color: var(--text-main);
-            overflow-x: hidden;
-            position: relative;
+            justify-content: center;
+            padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* ===== BACKGROUND GLOWS ===== */
-        .bg-glow {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(100px);
-            pointer-events: none;
-            z-index: 0;
-            /* ✅ FIX: use % sizing so they scale on small screens */
-            width: 60vw;
-            height: 60vw;
-            max-width: 400px;
-            max-height: 400px;
-        }
-        .bg-glow-1 { background: rgba(16,185,129,0.25); top: 0; right: 0; }
-        .bg-glow-2 { background: rgba(14,165,233,0.15); bottom: 0; left: 0; }
-
-        /* ===== CARD ===== */
+        /* ===== CARD — white, clean, like reference image ===== */
         .card {
-            background: var(--card-bg);
-            border-radius: var(--radius-card);
-            /* ✅ FIX: responsive padding using clamp */
-            padding: clamp(24px, 6vw, 44px) clamp(18px, 5vw, 32px);
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255,255,255,0.8);
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 4px 32px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
             width: 100%;
-            max-width: 480px;
-            position: relative;
-            z-index: 10;
+            max-width: 420px;
+            padding: clamp(28px, 7vw, 44px) clamp(20px, 6vw, 36px);
             text-align: center;
-            animation: slideUp 0.7s cubic-bezier(0.16,1,0.3,1) both;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(32px) scale(0.96); }
-            to   { opacity: 1; transform: translateY(0)   scale(1); }
-        }
-
-        /* ===== BADGE ===== */
-        .seal-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            background: var(--green-bg);
-            color: var(--green-dark);
-            font-size: clamp(0.78rem, 2.5vw, 0.9rem);
-            font-weight: 700;
-            padding: 7px 16px;
-            border-radius: 999px;
-            border: 1px solid rgba(16,185,129,0.3);
-            margin-bottom: 24px;
-        }
-
-        /* ===== CHECKMARK ===== */
-        .checkmark-wrap {
+            animation: popIn .6s cubic-bezier(.16,1,.3,1) both;
+            /* Step transitions */
             position: relative;
-            /* ✅ FIX: responsive size */
-            width: clamp(90px, 25vw, 120px);
-            height: clamp(90px, 25vw, 120px);
+            overflow: hidden;
+        }
+
+        @keyframes popIn {
+            from { opacity:0; transform: scale(.93) translateY(16px); }
+            to   { opacity:1; transform: scale(1)   translateY(0); }
+        }
+
+        /* ===== STEP WRAPPER ===== */
+        .step {
+            display: none;
+            animation: stepIn .4s cubic-bezier(.16,1,.3,1) both;
+        }
+        .step.active { display: block; }
+
+        @keyframes stepIn {
+            from { opacity:0; transform: translateX(-18px); }
+            to   { opacity:1; transform: translateX(0); }
+        }
+
+        /* ===== CHECKMARK (SVG animated) ===== */
+        .check-wrap {
+            width: clamp(90px, 24vw, 115px);
+            height: clamp(90px, 24vw, 115px);
             margin: 0 auto 20px;
+            position: relative;
         }
 
-        .checkmark-svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 6px 14px rgba(16,185,129,0.3));
+        .check-wrap svg { width: 100%; height: 100%; overflow: visible; }
+
+        /* Shield shape path */
+        .shield-shape {
+            fill: #22c55e;
+            filter: drop-shadow(0 6px 18px rgba(34,197,94,.35));
         }
 
-        .ck-bg   { fill: var(--green-bg); }
-        .ck-ring {
-            fill: none; stroke: var(--green); stroke-width: 6;
-            stroke-dasharray: 280; stroke-dashoffset: 280;
-            animation: drawRing 0.9s cubic-bezier(0.65,0,0.45,1) 0.1s forwards;
-        }
-        .ck-tick {
-            fill: none; stroke: var(--green); stroke-width: 7.5;
-            stroke-linecap: round; stroke-linejoin: round;
-            stroke-dasharray: 80; stroke-dashoffset: 80;
-            animation: drawTick 0.6s cubic-bezier(0.65,0,0.45,1) 0.8s forwards;
+        /* Tick on shield */
+        .tick {
+            fill: none;
+            stroke: #fff;
+            stroke-width: 5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 55;
+            stroke-dashoffset: 55;
+            animation: drawTick .55s cubic-bezier(.65,0,.45,1) .5s forwards;
         }
 
-        @keyframes drawRing { to { stroke-dashoffset: 0; } }
         @keyframes drawTick { to { stroke-dashoffset: 0; } }
 
-        .pulse-ring {
+        .pulse {
             position: absolute;
             inset: 0;
             border-radius: 50%;
-            border: 3px solid var(--green);
+            border: 3px solid #22c55e;
             opacity: 0;
-            animation: pulse 2.5s ease-out 1.2s infinite;
+            animation: pulse 2.4s ease-out 1s infinite;
         }
         @keyframes pulse {
-            0%   { transform: scale(0.9); opacity: 0.7; }
-            100% { transform: scale(1.5); opacity: 0; }
+            0%   { transform: scale(.85); opacity: .7; }
+            100% { transform: scale(1.55); opacity: 0; }
         }
 
         /* ===== TITLE ===== */
-        .main-title {
-            /* ✅ FIX: fluid font size using clamp */
-            font-size: clamp(1.6rem, 6vw, 2.2rem);
+        .title {
+            font-size: clamp(1.3rem, 5.5vw, 1.75rem);
             font-weight: 900;
-            color: var(--green-text);
-            line-height: 1.25;
+            color: #0f172a;
+            line-height: 1.3;
             margin-bottom: 10px;
-            /* ✅ FIX: allow line break on tiny screens */
-            word-break: break-word;
         }
 
+        .title span { color: #16a34a; }
+
+        /* ===== SUBTITLE ===== */
         .subtitle {
-            color: var(--text-muted);
-            font-size: clamp(0.88rem, 2.8vw, 1rem);
-            line-height: 1.7;
-            margin-bottom: 26px;
+            font-size: clamp(.88rem, 3vw, .98rem);
+            color: #64748b;
+            line-height: 1.65;
+            margin-bottom: 28px;
         }
 
-        /* ===== GUARANTEE BOX ===== */
-        .guarantee-box {
-            background: #f8fafc;
-            border-radius: 18px;
-            border: 1px solid var(--border);
-            padding: clamp(14px, 4vw, 20px);
-            margin-bottom: 22px;
-            text-align: right;
+        /* ===== STEP-1 BUTTONS ===== */
+        .btn-group {
             display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .g-item {
-            display: flex;
-            align-items: center;
             gap: 12px;
-        }
-
-        /* ✅ FIX: icon doesn't shrink on tiny screens */
-        .g-icon {
-            flex-shrink: 0;
-            width: 42px;
-            height: 42px;
-            border-radius: 11px;
-            background: var(--green-bg);
-            color: var(--green);
-            display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 1.15rem;
         }
 
-        .g-text h4 {
-            font-size: clamp(0.88rem, 2.8vw, 0.97rem);
-            font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 2px;
+        .btn {
+            flex: 1;
+            max-width: 160px;
+            padding: 13px 10px;
+            border-radius: 10px;
+            border: none;
+            font-family: inherit;
+            font-size: clamp(.9rem, 3vw, 1rem);
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform .15s, box-shadow .15s, background .15s;
         }
-        .g-text p {
-            font-size: clamp(0.78rem, 2.4vw, 0.84rem);
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
+        .btn:active { transform: scale(.97); }
 
-        /* ===== STATUS PILL ===== */
-        .status-pill {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            padding: 14px 18px;
-            background: linear-gradient(135deg, #10b981, #059669);
+        .btn-register {
+            background: #1e3a5f;
             color: #fff;
-            font-size: clamp(0.95rem, 3vw, 1.05rem);
+            box-shadow: 0 4px 14px rgba(30,58,95,.25);
+        }
+        .btn-register:hover { background: #162d4a; box-shadow: 0 6px 18px rgba(30,58,95,.35); }
+
+        .btn-cancel {
+            background: #f1f5f9;
+            color: #334155;
+            border: 1px solid #cbd5e1;
+        }
+        .btn-cancel:hover { background: #e2e8f0; }
+
+        /* ===== FORM STEPS ===== */
+        .form-title {
+            font-size: clamp(1rem, 4vw, 1.2rem);
             font-weight: 800;
-            border-radius: 14px;
-            box-shadow: 0 8px 24px rgba(16,185,129,0.3);
-            margin-bottom: 20px;
+            color: #0f172a;
+            margin-bottom: 6px;
         }
 
-        /* ===== FOOTER ===== */
-        .card-footer {
-            border-top: 1px solid #f1f5f9;
-            padding-top: 16px;
-            font-size: clamp(0.78rem, 2.3vw, 0.85rem);
-            color: #94a3b8;
-            text-align: center;
-        }
-        .card-footer i { color: var(--green); margin-left: 4px; }
-
-        /* ===== SCREENS: 360px (small Android) ===== */
-        @media (max-width: 360px) {
-            .card { border-radius: 20px; }
-            .seal-badge { font-size: 0.72rem; padding: 6px 12px; }
+        .form-subtitle {
+            font-size: .88rem;
+            color: #64748b;
+            margin-bottom: 22px;
         }
 
-        /* ===== SCREENS: landscape phones ===== */
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 22px;
+        }
+        .step-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            transition: background .3s, width .3s;
+        }
+        .step-dot.active { background: #1e3a5f; width: 24px; border-radius: 4px; }
+        .step-dot.done   { background: #22c55e; }
+
+        .field-wrap { margin-bottom: 16px; text-align: right; }
+
+        .field-wrap label {
+            display: block;
+            font-size: .88rem;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 6px;
+        }
+
+        .field-wrap input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: .95rem;
+            color: #0f172a;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+        }
+        .field-wrap input:focus {
+            border-color: #1e3a5f;
+            box-shadow: 0 0 0 3px rgba(30,58,95,.12);
+        }
+        .field-wrap input::placeholder { color: #94a3b8; }
+
+        /* next / back / submit */
+        .btn-next {
+            width: 100%;
+            padding: 14px;
+            background: #1e3a5f;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: background .2s, box-shadow .2s;
+        }
+        .btn-next:hover { background: #162d4a; box-shadow: 0 6px 18px rgba(30,58,95,.3); }
+        .btn-next:disabled { background: #94a3b8; cursor: not-allowed; }
+
+        .btn-back {
+            background: none;
+            border: none;
+            font-family: inherit;
+            font-size: .88rem;
+            color: #64748b;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .btn-back:hover { color: #0f172a; }
+
+        /* ===== SUCCESS STEP ===== */
+        .success-icon {
+            font-size: 3.5rem;
+            margin-bottom: 12px;
+        }
+        .success-title {
+            font-size: clamp(1.1rem, 4.5vw, 1.4rem);
+            font-weight: 900;
+            color: #16a34a;
+            margin-bottom: 8px;
+        }
+        .success-msg {
+            font-size: .92rem;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* ===== LANDSCAPE PHONES ===== */
         @media (max-height: 500px) and (orientation: landscape) {
-            body { align-items: flex-start; padding-top: 16px; }
-            .checkmark-wrap { width: 70px; height: 70px; margin-bottom: 12px; }
-            .main-title { font-size: 1.4rem; }
-            .guarantee-box { gap: 10px; }
+            .check-wrap { width: 70px; height: 70px; margin-bottom: 10px; }
+            .title { font-size: 1.2rem; }
+            .subtitle { margin-bottom: 16px; }
         }
 
-        /* ===== REDUCED MOTION ===== */
+        /* ===== TINY SCREENS ===== */
+        @media (max-width: 360px) {
+            .btn { padding: 11px 6px; font-size: .82rem; }
+        }
+
         @media (prefers-reduced-motion: reduce) {
             .card { animation: none; }
-            .ck-ring, .ck-tick { animation: none; stroke-dashoffset: 0; }
-            .pulse-ring { animation: none; opacity: 0; }
+            .tick  { animation: none; stroke-dashoffset: 0; }
+            .pulse { animation: none; }
+            .step  { animation: none; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
-    <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
+<div class="card">
 
-    <!-- ✅ FIX: proper semantic role for screen readers -->
-    <main class="card" role="main" aria-label="شهادة تأكيد أصالة المنتج">
+    <!-- ======== STEP 0: Main verification screen ======== -->
+    <div class="step active" id="step0">
 
-        <!-- Badge -->
-        <div class="seal-badge">
-            <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
-            <span>شهادة فحص وتأكيد معتمدة</span>
-        </div>
-
-        <!-- Animated Checkmark -->
-        <div class="checkmark-wrap" aria-hidden="true">
-            <svg class="checkmark-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <circle class="ck-bg"   cx="50" cy="50" r="44"/>
-                <circle class="ck-ring" cx="50" cy="50" r="44"/>
-                <path   class="ck-tick" d="M28 52 L43 67 L72 35"/>
+        <!-- Animated shield checkmark -->
+        <div class="check-wrap" aria-hidden="true">
+            <svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+                <!-- Shield -->
+                <path class="shield-shape"
+                      d="M50 4 L88 18 L88 54 Q88 82 50 106 Q12 82 12 54 L12 18 Z"/>
+                <!-- Tick -->
+                <path class="tick" d="M34 55 L45 68 L66 40"/>
             </svg>
-            <div class="pulse-ring"></div>
+            <div class="pulse"></div>
         </div>
 
         <!-- Title -->
-        <h1 class="main-title">هذا المنتج أصلي 100%</h1>
+        <h1 class="title">هذا المنتج <span>أصلي 100%</span></h1>
 
-        <p class="subtitle">
-            شكرًا لثقتكم بنا. نؤكد أن هذا المنتج أصلي ومعتمد ومطابق لأعلى معايير الجودة والمواصفات الرسمية.
+        <!-- Subtitle — matches reference: "Here is the next step for Product Registration" -->
+        <p class="subtitle">هذه هي الخطوة التالية لتسجيل المنتج والحصول على ضمانك الرسمي</p>
+
+        <!-- Two buttons — Register / Cancel -->
+        <div class="btn-group">
+            <button class="btn btn-register" onclick="startRegistration()">تسجيل</button>
+            <button class="btn btn-cancel"   onclick="cancel()">إلغاء</button>
+        </div>
+
+    </div>
+
+    <!-- ======== STEP 1: Name ======== -->
+    <div class="step" id="step1">
+        <div class="step-indicator">
+            <div class="step-dot done"   id="dot0"></div>
+            <div class="step-dot active" id="dot1"></div>
+            <div class="step-dot"        id="dot2"></div>
+            <div class="step-dot"        id="dot3"></div>
+        </div>
+        <p class="form-title">ما اسمك؟</p>
+        <p class="form-subtitle">الخطوة 1 من 3 — الاسم</p>
+        <div class="field-wrap">
+            <label for="inp-name">الاسم الكامل</label>
+            <input id="inp-name" type="text" placeholder="مثال: محمد أحمد" autocomplete="name" inputmode="text" oninput="validateStep1()">
+        </div>
+        <button class="btn-next" id="btn1" onclick="goStep(2)" disabled>التالي</button>
+        <button class="btn-back" onclick="goStep(0)">→ رجوع</button>
+    </div>
+
+    <!-- ======== STEP 2: Phone ======== -->
+    <div class="step" id="step2">
+        <div class="step-indicator">
+            <div class="step-dot done" id="dot0b"></div>
+            <div class="step-dot done" id="dot1b"></div>
+            <div class="step-dot active" id="dot2b"></div>
+            <div class="step-dot"        id="dot3b"></div>
+        </div>
+        <p class="form-title">رقم موبايلك؟</p>
+        <p class="form-subtitle">الخطوة 2 من 3 — رقم الواتساب أو الهاتف</p>
+        <div class="field-wrap">
+            <label for="inp-phone">رقم الهاتف</label>
+            <input id="inp-phone" type="tel" placeholder="01xxxxxxxxx" autocomplete="tel" inputmode="numeric" oninput="validateStep2()">
+        </div>
+        <button class="btn-next" id="btn2" onclick="goStep(3)" disabled>التالي</button>
+        <button class="btn-back" onclick="goStep(1)">→ رجوع</button>
+    </div>
+
+    <!-- ======== STEP 3: Address ======== -->
+    <div class="step" id="step3">
+        <div class="step-indicator">
+            <div class="step-dot done"></div>
+            <div class="step-dot done"></div>
+            <div class="step-dot done"></div>
+            <div class="step-dot active"></div>
+        </div>
+        <p class="form-title">منطقتك أو عنوانك؟</p>
+        <p class="form-subtitle">الخطوة 3 من 3 — المنطقة (اختياري)</p>
+        <div class="field-wrap">
+            <label for="inp-area">المنطقة / المحافظة</label>
+            <input id="inp-area" type="text" placeholder="مثال: القاهرة، الجيزة، الإسكندرية" inputmode="text">
+        </div>
+        <button class="btn-next" onclick="submitForm()">تأكيد التسجيل ✓</button>
+        <button class="btn-back" onclick="goStep(2)">→ رجوع</button>
+    </div>
+
+    <!-- ======== STEP 4: Success ======== -->
+    <div class="step" id="step4">
+        <div class="success-icon">🎉</div>
+        <p class="success-title">تم تسجيلك بنجاح!</p>
+        <p class="success-msg">
+            شكرًا لك. تم تفعيل ضمانك الرسمي.<br>
+            سنتواصل معك على واتساب بمجرد وجود أي عروض أو خدمة صيانة.
         </p>
+    </div>
 
-        <!-- Guarantees -->
-        <div class="guarantee-box">
-            <div class="g-item">
-                <div class="g-icon"><i class="fa-solid fa-medal" aria-hidden="true"></i></div>
-                <div class="g-text">
-                    <h4>جودة أصلية مضمونة</h4>
-                    <p>مصنوع ومستورد من المصادر الرسمية المعتمدة</p>
-                </div>
-            </div>
-            <div class="g-item">
-                <div class="g-icon"><i class="fa-solid fa-lock" aria-hidden="true"></i></div>
-                <div class="g-text">
-                    <h4>حماية تامة من التقليد</h4>
-                    <p>اجتاز جميع معايير الفحص والرقابة بنجاح</p>
-                </div>
-            </div>
-            <div class="g-item">
-                <div class="g-icon"><i class="fa-solid fa-handshake-angle" aria-hidden="true"></i></div>
-                <div class="g-text">
-                    <h4>ضمان ورعاية العملاء</h4>
-                    <p>نلتزم بأفضل تجربة شراء ودعم كامل لعملائنا</p>
-                </div>
-            </div>
-        </div>
+</div>
 
-        <!-- Status Pill -->
-        <div class="status-pill" role="status" aria-live="polite">
-            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-            <span>تم التحقق والاعتماد بنجاح</span>
-        </div>
+<script>
+    // ===== Navigation between steps =====
+    function goStep(n) {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById('step' + n).classList.add('active');
+    }
 
-        <!-- Footer -->
-        <footer class="card-footer">
-            <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
-            تم الفحص بواسطة نظام التأكيد المعتمد &bull; أبو سيفين
-        </footer>
+    function startRegistration() {
+        goStep(1);
+        // reset inputs in case user came back
+        document.getElementById('inp-name').value = '';
+        document.getElementById('btn1').disabled = true;
+    }
 
-    </main>
+    function cancel() {
+        // Fade card out briefly then back to step 0
+        goStep(0);
+    }
 
-    <script>
-        // ✅ FIX: Wait for fonts & icons before firing confetti so layout is stable
+    // ===== Validation: unlock Next only when field is filled =====
+    function validateStep1() {
+        const val = document.getElementById('inp-name').value.trim();
+        document.getElementById('btn1').disabled = val.length < 2;
+    }
+
+    function validateStep2() {
+        const val = document.getElementById('inp-phone').value.trim().replace(/\D/g,'');
+        document.getElementById('btn2').disabled = val.length < 10;
+    }
+
+    // ===== Final submit =====
+    function submitForm() {
+        const name  = document.getElementById('inp-name').value.trim();
+        const phone = document.getElementById('inp-phone').value.trim();
+        const area  = document.getElementById('inp-area').value.trim();
+
+        // Build a Google Forms / WhatsApp / webhook submission here if needed
+        // For now: log to console and show success
+        console.log('Registration:', { name, phone, area });
+
+        goStep(4);
+
+        // Fire small confetti burst on success
         document.fonts.ready.then(() => {
             if (typeof confetti === 'function') {
-                confetti({
-                    particleCount: 90,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#10b981', '#34d399', '#059669', '#f59e0b', '#6ee7b7']
-                });
+                confetti({ particleCount: 70, spread: 60, origin: { y: 0.5 },
+                           colors: ['#22c55e','#16a34a','#bbf7d0','#f59e0b'] });
             }
         });
-    </script>
+    }
+
+    // ===== Initial confetti on load =====
+    document.fonts.ready.then(() => {
+        if (typeof confetti === 'function') {
+            confetti({ particleCount: 85, spread: 65, origin: { y: 0.6 },
+                       colors: ['#22c55e','#16a34a','#34d399','#f59e0b'] });
+        }
+    });
+</script>
+
 </body>
 </html>
