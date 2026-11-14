@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أداة طباعة ملصقات الـ QR للمنتجات بالمحل</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- QRCode.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --dark: #0f172a;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+        body {
+            background: #f1f5f9;
+            color: #1e293b;
+            padding: 24px 16px;
+        }
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .header h1 {
+            font-size: 1.8rem;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+        .header p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+        .control-panel {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            margin-bottom: 24px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: #334155;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            direction: ltr;
+        }
+        .form-group input:focus {
+            border-color: var(--primary);
+        }
+        .hint {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 6px;
+        }
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+        
+        /* Sticker Preview Container */
+        .preview-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        /* Printable Sticker Design */
+        .sticker-card {
+            background: #ffffff;
+            width: 280px;
+            border-radius: 18px;
+            border: 3px solid #10b981;
+            padding: 20px 16px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        .sticker-header {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #065f46;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .sticker-title {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #065f46;
+            margin-bottom: 12px;
+        }
+        .qr-wrapper {
+            background: #ffffff;
+            display: inline-block;
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px dashed #cbd5e1;
+            margin-bottom: 10px;
+        }
+        #qrcode {
+            display: flex;
+            justify-content: center;
+        }
+        .sticker-footer {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #475569;
+            margin-top: 6px;
+        }
+        .sticker-badge {
+            display: inline-block;
+            background: #ecfdf5;
+            color: #059669;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-top: 6px;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        /* Sheet for Printing */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .header, .control-panel, .btn-group {
+                display: none !important;
+            }
+            .preview-section {
+                margin: 0;
+            }
+            .sheet-print {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+                padding: 20px;
+            }
+            .sticker-card {
+                box-shadow: none !important;
+                break-inside: avoid;
+            }
+        }
+        .sheet-print {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fa-solid fa-qrcode" style="color: #10b981;"></i> مولد ملصقات الـ QR المعتمدة للمنتجات</h1>
+            <p>اطبع هذا الكود وضعه على علب وكراتين المنتجات في محلك. فور مسحه بكاميرا الزبون تفتح صفحة "هذا المنتج أصلي 100%".</p>
+        </div>
+
+        <div class="control-panel">
+            <div class="form-group">
+                <label for="pageUrl"><i class="fa-solid fa-link"></i> رابط صفحة الهبوط على الإنترنت:</label>
+                <input type="text" id="pageUrl" value="https://example.com/verify">
+                <div class="hint">ضع رابط الصفحة بعد رفعها على استضافتك أو اترك الرابط التجريبي حالياً لمعاينة الكود.</div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary" id="downloadSingleBtn">
+                    <i class="fa-solid fa-download"></i> تحميل الملصق صورة عالية الدقة (PNG)
+                </button>
+                <button class="btn btn-secondary" onclick="window.print()">
+                    <i class="fa-solid fa-print"></i> طباعة صفحة ملصقات كاملة (A4)
+                </button>
+                <a href="index.html" target="_blank" class="btn btn-secondary" style="text-decoration: none;">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> معاينة صفحة الهبوط
+                </a>
+            </div>
+        </div>
+
+        <div class="preview-section">
+            <!-- Sticker Single Preview -->
+            <div class="sticker-card" id="stickerCard">
+                <div class="sticker-header">
+                    <i class="fa-solid fa-shield-check"></i> فحص الضمان والأصالة
+                </div>
+                <div class="sticker-title">امسح الكود بكاميرا هاتفك</div>
+                
+                <div class="qr-wrapper">
+                    <div id="qrcode"></div>
+                </div>
+
+                <div class="sticker-footer">تأكيد فوري لأصالة المنتج</div>
+                <div class="sticker-badge"><i class="fa-solid fa-check"></i> منتج أصلي 100%</div>
+            </div>
+        </div>
+
+        <!-- Hidden Grid for A4 Print (Multi-stickers) -->
+        <div class="sheet-print" id="printSheet"></div>
+    </div>
+
+    <script>
+        const pageUrlInput = document.getElementById('pageUrl');
+        const qrcodeContainer = document.getElementById('qrcode');
+        const downloadSingleBtn = document.getElementById('downloadSingleBtn');
+        const printSheet = document.getElementById('printSheet');
+        let qrInstance = null;
+
+        function updateQR() {
+            const url = pageUrlInput.value.trim() || window.location.href;
+            qrcodeContainer.innerHTML = '';
+            
+            qrInstance = new QRCode(qrcodeContainer, {
+                text: url,
+                width: 170,
+                height: 170,
+                colorDark: "#065f46",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            // Prepare multi-stickers for A4 print
+            setTimeout(preparePrintSheet, 400);
+        }
+
+        function preparePrintSheet() {
+            printSheet.innerHTML = '';
+            const stickerHtml = document.getElementById('stickerCard').outerHTML;
+            for (let i = 0; i < 9; i++) {
+                printSheet.innerHTML += stickerHtml;
+            }
+        }
+
+        pageUrlInput.addEventListener('input', updateQR);
+
+        // Download as high-res PNG image
+        downloadSingleBtn.addEventListener('click', () => {
+            const qrCanvas = qrcodeContainer.querySelector('canvas');
+            const qrImg = qrcodeContainer.querySelector('img');
+            const source = qrCanvas || qrImg;
+
+            if (!source) return;
+
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const w = 500;
+            const h = 650;
+            canvas.width = w;
+            canvas.height = h;
+
+            // Background
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, w, h);
+
+            // Border
+            ctx.lineWidth = 10;
+            ctx.strokeStyle = '#10b981';
+            ctx.strokeRect(10, 10, w - 20, h - 20);
+
+            // Header text
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#065f46';
+            ctx.font = 'bold 22px Cairo, Arial, sans-serif';
+            ctx.fillText("فحص الضمان والأصالة", w / 2, 60);
+
+            ctx.fillStyle = '#047857';
+            ctx.font = 'bold 30px Cairo, Arial, sans-serif';
+            ctx.fillText("امسح الكود بكاميرا هاتفك", w / 2, 105);
+
+            // Draw QR Code
+            const qrSize = 320;
+            const qrX = (w - qrSize) / 2;
+            const qrY = 135;
+            ctx.drawImage(source, qrX, qrY, qrSize, qrSize);
+
+            // Footer texts
+            ctx.fillStyle = '#334155';
+            ctx.font = 'bold 22px Cairo, Arial, sans-serif';
+            ctx.fillText("تأكيد فوري لأصالة المنتج", w / 2, 500);
+
+            // Badge box
+            ctx.fillStyle = '#10b981';
+            ctx.beginPath();
+            ctx.roundRect(w / 2 - 140, 530, 280, 55, 28);
+            ctx.fill();
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 24px Cairo, Arial, sans-serif';
+            ctx.fillText("✔ هذا المنتج أصلي 100%", w / 2, 566);
+
+            // Trigger download
+            const link = document.createElement('a');
+            link.download = 'ملصق-منتج-أصلي-QR.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', () => {
+            // Check if loaded locally
+            if (window.location.protocol === 'file:') {
+                const landingPath = window.location.href.replace('print-qr-sticker.html', 'index.html');
+                pageUrlInput.value = landingPath;
+            }
+            updateQR();
+        });
+    </script>
+</body>
+</html>

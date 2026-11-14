@@ -1,0 +1,302 @@
+:root {
+    --primary-green: #10b981;
+    --primary-green-dark: #059669;
+    --primary-green-light: #d1fae5;
+    --emerald-glow: rgba(16, 185, 129, 0.35);
+    --bg-dark: #0f172a;
+    --card-bg: rgba(255, 255, 255, 0.96);
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --border-color: #e2e8f0;
+    --shadow-soft: 0 25px 50px -12px rgba(0, 0, 0, 0.2), 0 0 35px rgba(16, 185, 129, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background: radial-gradient(circle at 50% 15%, #1e293b 0%, #0b1120 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 16px;
+    position: relative;
+    overflow-x: hidden;
+    color: var(--text-main);
+}
+
+/* Background Ambient Glows */
+.bg-glow {
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    filter: blur(110px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.bg-glow-1 {
+    background: rgba(16, 185, 129, 0.28);
+    top: 5%;
+    right: 10%;
+}
+
+.bg-glow-2 {
+    background: rgba(14, 165, 233, 0.18);
+    bottom: 5%;
+    left: 10%;
+}
+
+.main-container {
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Verification Card */
+.verification-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border-radius: 32px;
+    padding: 42px 28px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    text-align: center;
+    position: relative;
+    animation: slideUpFade 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUpFade {
+    0% {
+        opacity: 0;
+        transform: translateY(35px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Security Seal Badge */
+.security-seal {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ecfdf5;
+    color: var(--primary-green-dark);
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 7px 18px;
+    border-radius: 50px;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    margin-bottom: 26px;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
+}
+
+/* Animated Checkmark */
+.checkmark-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 24px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkmark-svg {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 8px 16px rgba(16, 185, 129, 0.3));
+}
+
+.checkmark-circle-bg {
+    fill: #ecfdf5;
+}
+
+.checkmark-circle {
+    fill: none;
+    stroke: var(--primary-green);
+    stroke-width: 6;
+    stroke-miterlimit: 10;
+    stroke-dasharray: 280;
+    stroke-dashoffset: 280;
+    animation: drawCircle 0.9s cubic-bezier(0.65, 0, 0.45, 1) 0.15s forwards;
+}
+
+.checkmark-check {
+    fill: none;
+    stroke: var(--primary-green);
+    stroke-width: 7.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-miterlimit: 10;
+    stroke-dasharray: 80;
+    stroke-dashoffset: 80;
+    animation: drawCheck 0.65s cubic-bezier(0.65, 0, 0.45, 1) 0.85s forwards;
+}
+
+.pulse-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3.5px solid var(--primary-green);
+    opacity: 0;
+    animation: pulseRing 2.2s cubic-bezier(0.215, 0.61, 0.355, 1) 1.1s infinite;
+}
+
+@keyframes drawCircle {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes drawCheck {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes pulseRing {
+    0% {
+        transform: scale(0.85);
+        opacity: 0.85;
+    }
+    100% {
+        transform: scale(1.45);
+        opacity: 0;
+    }
+}
+
+/* Main Typography */
+.main-title {
+    font-size: 2.25rem;
+    font-weight: 900;
+    color: #065f46;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    line-height: 1.3;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 1.02rem;
+    line-height: 1.7;
+    margin-bottom: 28px;
+    padding: 0 8px;
+}
+
+/* Guarantee Box */
+.guarantee-box {
+    background: #f8fafc;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    padding: 18px 20px;
+    margin-bottom: 26px;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.guarantee-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.icon-circle {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 12px;
+    background: #ecfdf5;
+    color: var(--primary-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.15);
+}
+
+.guarantee-text h4 {
+    font-size: 0.98rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 2px;
+}
+
+.guarantee-text p {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+/* Verified Status Pill */
+.verified-status-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #ffffff;
+    font-size: 1.05rem;
+    font-weight: 800;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+    margin-bottom: 22px;
+}
+
+.verified-status-pill i {
+    font-size: 1.3rem;
+}
+
+/* Footer */
+.card-footer {
+    border-top: 1px solid #f1f5f9;
+    padding-top: 18px;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.card-footer i {
+    color: var(--primary-green);
+}
+
+/* Responsive Mobile Tweaks */
+@media (max-width: 480px) {
+    .verification-card {
+        padding: 32px 20px;
+        border-radius: 26px;
+    }
+    .main-title {
+        font-size: 1.85rem;
+    }
+    .checkmark-wrapper {
+        width: 105px;
+        height: 105px;
+    }
+    .subtitle {
+        font-size: 0.92rem;
+    }
+    .guarantee-box {
+        padding: 14px 14px;
+    }
+}
