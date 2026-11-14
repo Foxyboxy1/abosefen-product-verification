@@ -40,8 +40,8 @@
         .card {
             background: #ffffff;
             width: 100%;
-            max-width: 380px;
-            padding: 28px 20px 32px;
+            max-width: 400px;
+            padding: 32px 20px 36px;
             text-align: center;
             position: relative;
             animation: fadeIn 0.4s ease-out both;
@@ -58,22 +58,20 @@
             }
         }
 
-        /* Top right close icon 'X' matching reference */
-        .close-icon {
-            position: absolute;
-            top: 6px;
-            right: 8px;
-            font-size: 1.35rem;
-            color: #1f2937;
-            text-decoration: none;
-            cursor: pointer;
-            line-height: 1;
-            font-weight: 600;
-            opacity: 0.85;
-            transition: opacity 0.2s;
+        /* ===== ARSHIA BRAND LOGO ===== */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 22px;
         }
-        .close-icon:hover {
-            opacity: 1;
+
+        .brand-logo {
+            width: 150px;
+            max-width: 60%;
+            height: auto;
+            object-fit: contain;
+            display: block;
         }
 
         /* ===== TITLE — Centered, Exact Font & Style ===== */
@@ -82,10 +80,10 @@
             font-size: clamp(1.15rem, 5vw, 1.45rem);
             font-weight: 800;
             color: #111827;
-            line-height: 1.35;
+            line-height: 1.38;
             text-align: center;
             margin-bottom: 24px;
-            padding: 0 10px;
+            padding: 0 8px;
             letter-spacing: -0.015em;
         }
 
@@ -100,7 +98,7 @@
 
         .product-img {
             width: 100%;
-            max-width: 300px;
+            max-width: 320px;
             aspect-ratio: 1 / 1;
             object-fit: contain;
             display: block;
@@ -158,7 +156,10 @@
 
         @media (max-width: 360px) {
             .card {
-                padding: 20px 12px 24px;
+                padding: 24px 12px 28px;
+            }
+            .brand-logo {
+                width: 125px;
             }
             .product-title {
                 font-size: 1.1rem;
@@ -211,7 +212,6 @@
 
     function handleProducts(products) {
         if (!productId) {
-            // If no ID is passed, default to first product or show error
             if (products.length > 0) {
                 renderProduct(products[0]);
             } else {
@@ -228,12 +228,14 @@
         }
     }
 
-    // 3. Render Product (Matches image: Title centered, image centered, close icon, no animated checkmark)
+    // 3. Render Product
     function renderProduct(p) {
         const card = document.getElementById('card');
         card.innerHTML = `
-            <span class="close-icon" onclick="window.history.length > 1 ? window.history.back() : window.close()">&#x2715;</span>
-            <h1 class="product-title">This ${escHtml(p.name)} Is A Genuine Product</h1>
+            <div class="logo-container">
+                <img src="arshia logo blue.webp" alt="Arshia" class="brand-logo">
+            </div>
+            <h1 class="product-title">This Arshia ${escHtml(p.name)} (${escHtml(p.id)}) Is A Genuine Product</h1>
             <div class="img-container">
                 <img
                     class="product-img"
@@ -253,6 +255,9 @@
             : `No product ID provided. Please scan the QR code on the product.`;
 
         card.innerHTML = `
+            <div class="logo-container">
+                <img src="arshia logo blue.webp" alt="Arshia" class="brand-logo">
+            </div>
             <div class="error-state">
                 <div class="error-icon">&#x26A0;&#xFE0F;</div>
                 <p class="error-title">Product Not Found</p>

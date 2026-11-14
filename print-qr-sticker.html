@@ -293,8 +293,8 @@
 
             pageUrlInput.value = fullUrl;
             previewLink.href = fullUrl;
-            stickerTitle.textContent = name;
-            stickerId.textContent = "ID: " + id;
+            stickerTitle.textContent = "Arshia " + name;
+            stickerId.textContent = "(" + id + ")";
 
             qrcodeContainer.innerHTML = '';
             qrInstance = new QRCode(qrcodeContainer, {
@@ -352,12 +352,12 @@
             ctx.fillText("فحص الضمان والأصالة", w / 2, 55);
 
             ctx.fillStyle = '#0f172a';
-            ctx.font = 'bold 24px Cairo, Arial, sans-serif';
-            ctx.fillText(name, w / 2, 95);
+            ctx.font = 'bold 22px Cairo, Arial, sans-serif';
+            ctx.fillText("Arshia " + name, w / 2, 95);
 
             ctx.fillStyle = '#059669';
             ctx.font = 'bold 18px Arial, sans-serif';
-            ctx.fillText("ID: " + id, w / 2, 130);
+            ctx.fillText("(" + id + ")", w / 2, 130);
 
             // Draw QR
             const qrSize = 310;
