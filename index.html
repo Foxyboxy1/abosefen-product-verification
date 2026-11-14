@@ -1,446 +1,256 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="description" content="هذا المنتج أصلي 100% — تأكيد رسمي من أبو سيفين">
-    <meta property="og:title" content="هذا المنتج أصلي 100%">
-    <meta property="og:description" content="تم التحقق من أصالة وجودة هذا المنتج رسمياً.">
+    <meta name="theme-color" content="#f1f5f9">
+    <meta name="description" content="Genuine Product Verification">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js" async></script>
-    <title>هذا المنتج أصلي 100%</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+    <title>Genuine Product</title>
     <style>
-        /* ===== RESET & BASE ===== */
+        /* ===== RESET ===== */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
-        html {
-            -webkit-text-size-adjust: 100%;
-            text-size-adjust: 100%;
-        }
-
+        /* ===== PAGE ===== */
         body {
-            font-family: 'Cairo', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #f0f4f8;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            /* Light gray page background — same as reference */
+            background: #eef2f7;
             min-height: 100vh;
             min-height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+            padding: max(20px, env(safe-area-inset-top)) 16px
+                     max(20px, env(safe-area-inset-bottom));
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* ===== CARD — white, clean, like reference image ===== */
+        /* ===== CARD — white, clean, matches reference ===== */
         .card {
             background: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 4px 32px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+            border-radius: 16px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.09);
             width: 100%;
-            max-width: 420px;
-            padding: clamp(28px, 7vw, 44px) clamp(20px, 6vw, 36px);
+            max-width: 360px;
+            padding: 24px 20px 28px;
             text-align: center;
-            animation: popIn .6s cubic-bezier(.16,1,.3,1) both;
-            /* Step transitions */
-            position: relative;
-            overflow: hidden;
+            /* Subtle entrance */
+            animation: popIn .5s cubic-bezier(.16,1,.3,1) both;
         }
 
         @keyframes popIn {
-            from { opacity:0; transform: scale(.93) translateY(16px); }
-            to   { opacity:1; transform: scale(1)   translateY(0); }
+            from { opacity: 0; transform: translateY(14px) scale(.97); }
+            to   { opacity: 1; transform: translateY(0)    scale(1); }
         }
 
-        /* ===== STEP WRAPPER ===== */
-        .step {
-            display: none;
-            animation: stepIn .4s cubic-bezier(.16,1,.3,1) both;
-        }
-        .step.active { display: block; }
-
-        @keyframes stepIn {
-            from { opacity:0; transform: translateX(-18px); }
-            to   { opacity:1; transform: translateX(0); }
-        }
-
-        /* ===== CHECKMARK (SVG animated) ===== */
-        .check-wrap {
-            width: clamp(90px, 24vw, 115px);
-            height: clamp(90px, 24vw, 115px);
-            margin: 0 auto 20px;
-            position: relative;
-        }
-
-        .check-wrap svg { width: 100%; height: 100%; overflow: visible; }
-
-        /* Shield shape path */
-        .shield-shape {
-            fill: #22c55e;
-            filter: drop-shadow(0 6px 18px rgba(34,197,94,.35));
-        }
-
-        /* Tick on shield */
-        .tick {
-            fill: none;
-            stroke: #fff;
-            stroke-width: 5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            stroke-dasharray: 55;
-            stroke-dashoffset: 55;
-            animation: drawTick .55s cubic-bezier(.65,0,.45,1) .5s forwards;
-        }
-
-        @keyframes drawTick { to { stroke-dashoffset: 0; } }
-
-        .pulse {
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            border: 3px solid #22c55e;
-            opacity: 0;
-            animation: pulse 2.4s ease-out 1s infinite;
-        }
-        @keyframes pulse {
-            0%   { transform: scale(.85); opacity: .7; }
-            100% { transform: scale(1.55); opacity: 0; }
-        }
-
-        /* ===== TITLE ===== */
-        .title {
-            font-size: clamp(1.3rem, 5.5vw, 1.75rem);
+        /* ===== TITLE — matches "This [Name] Is A Genuine Product" ===== */
+        .product-title {
+            font-size: clamp(1.1rem, 5vw, 1.3rem);
             font-weight: 900;
             color: #0f172a;
             line-height: 1.3;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            /* reference image: left-aligned, bold */
+            text-align: left;
         }
 
-        .title span { color: #16a34a; }
-
-        /* ===== SUBTITLE ===== */
-        .subtitle {
-            font-size: clamp(.88rem, 3vw, .98rem);
-            color: #64748b;
-            line-height: 1.65;
-            margin-bottom: 28px;
+        /* ===== IMAGE CONTAINER — product + shield badge ===== */
+        .img-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 4px;
         }
 
-        /* ===== STEP-1 BUTTONS ===== */
-        .btn-group {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-        }
-
-        .btn {
-            flex: 1;
-            max-width: 160px;
-            padding: 13px 10px;
-            border-radius: 10px;
-            border: none;
-            font-family: inherit;
-            font-size: clamp(.9rem, 3vw, 1rem);
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform .15s, box-shadow .15s, background .15s;
-        }
-        .btn:active { transform: scale(.97); }
-
-        .btn-register {
-            background: #1e3a5f;
-            color: #fff;
-            box-shadow: 0 4px 14px rgba(30,58,95,.25);
-        }
-        .btn-register:hover { background: #162d4a; box-shadow: 0 6px 18px rgba(30,58,95,.35); }
-
-        .btn-cancel {
-            background: #f1f5f9;
-            color: #334155;
-            border: 1px solid #cbd5e1;
-        }
-        .btn-cancel:hover { background: #e2e8f0; }
-
-        /* ===== FORM STEPS ===== */
-        .form-title {
-            font-size: clamp(1rem, 4vw, 1.2rem);
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 6px;
-        }
-
-        .form-subtitle {
-            font-size: .88rem;
-            color: #64748b;
-            margin-bottom: 22px;
-        }
-
-        .step-indicator {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 22px;
-        }
-        .step-dot {
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            background: #e2e8f0;
-            transition: background .3s, width .3s;
-        }
-        .step-dot.active { background: #1e3a5f; width: 24px; border-radius: 4px; }
-        .step-dot.done   { background: #22c55e; }
-
-        .field-wrap { margin-bottom: 16px; text-align: right; }
-
-        .field-wrap label {
+        .product-img {
+            width: 100%;
+            /* Square-ish aspect like reference image */
+            aspect-ratio: 1 / 1;
+            object-fit: contain;
             display: block;
-            font-size: .88rem;
-            font-weight: 700;
-            color: #334155;
-            margin-bottom: 6px;
-        }
-
-        .field-wrap input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 2px solid #e2e8f0;
+            /* very subtle bg so transparent PNGs look clean */
+            background: #f8fafc;
             border-radius: 10px;
-            font-family: inherit;
-            font-size: .95rem;
-            color: #0f172a;
-            outline: none;
-            transition: border-color .2s, box-shadow .2s;
-        }
-        .field-wrap input:focus {
-            border-color: #1e3a5f;
-            box-shadow: 0 0 0 3px rgba(30,58,95,.12);
-        }
-        .field-wrap input::placeholder { color: #94a3b8; }
-
-        /* next / back / submit */
-        .btn-next {
-            width: 100%;
-            padding: 14px;
-            background: #1e3a5f;
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            margin-bottom: 10px;
-            transition: background .2s, box-shadow .2s;
-        }
-        .btn-next:hover { background: #162d4a; box-shadow: 0 6px 18px rgba(30,58,95,.3); }
-        .btn-next:disabled { background: #94a3b8; cursor: not-allowed; }
-
-        .btn-back {
-            background: none;
-            border: none;
-            font-family: inherit;
-            font-size: .88rem;
-            color: #64748b;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .btn-back:hover { color: #0f172a; }
-
-        /* ===== SUCCESS STEP ===== */
-        .success-icon {
-            font-size: 3.5rem;
-            margin-bottom: 12px;
-        }
-        .success-title {
-            font-size: clamp(1.1rem, 4.5vw, 1.4rem);
-            font-weight: 900;
-            color: #16a34a;
-            margin-bottom: 8px;
-        }
-        .success-msg {
-            font-size: .92rem;
-            color: #64748b;
-            line-height: 1.6;
         }
 
-        /* ===== LANDSCAPE PHONES ===== */
-        @media (max-height: 500px) and (orientation: landscape) {
-            .check-wrap { width: 70px; height: 70px; margin-bottom: 10px; }
-            .title { font-size: 1.2rem; }
-            .subtitle { margin-bottom: 16px; }
+        /* ===== SHIELD BADGE — exact position: bottom-right of image ===== */
+        .shield-badge {
+            position: absolute;
+            /* Sits at bottom-right, slightly overlapping down */
+            bottom: -10px;
+            right: 0px;
+            width: clamp(80px, 28%, 110px);
+            /* Animate in after image loads */
+            opacity: 0;
+            transform: scale(.6) rotate(-8deg);
+            transition: opacity .45s ease .3s, transform .45s cubic-bezier(.16,1,.3,1) .3s;
+        }
+        .shield-badge.visible {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
         }
 
-        /* ===== TINY SCREENS ===== */
+        /* ===== SVG SHIELD ===== */
+        .shield-svg { width: 100%; height: auto; overflow: visible; }
+        .shield-body { fill: #22c55e; filter: drop-shadow(0 4px 10px rgba(34,197,94,.4)); }
+        .shield-tick {
+            fill: none; stroke: #fff; stroke-width: 7;
+            stroke-linecap: round; stroke-linejoin: round;
+            stroke-dasharray: 55; stroke-dashoffset: 55;
+        }
+        .shield-tick.draw {
+            animation: drawTick .5s cubic-bezier(.65,0,.45,1) .65s forwards;
+        }
+        @keyframes drawTick { to { stroke-dashoffset: 0; } }
+
+        /* ===== ERROR STATE ===== */
+        .error-state {
+            padding: 32px 0;
+        }
+        .error-icon { font-size: 3rem; margin-bottom: 12px; }
+        .error-title { font-size: 1.1rem; font-weight: 800; color: #ef4444; margin-bottom: 8px; }
+        .error-msg   { font-size: .88rem; color: #64748b; line-height: 1.6; }
+        .error-id    { font-family: monospace; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
+
+        /* ===== LOADING STATE ===== */
+        .loading-state { padding: 48px 0; color: #94a3b8; font-size: .95rem; font-weight: 600; }
+        .spinner {
+            width: 36px; height: 36px; border: 3px solid #e2e8f0;
+            border-top-color: #22c55e; border-radius: 50%;
+            animation: spin .8s linear infinite;
+            margin: 0 auto 16px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ===== LANDSCAPE + TINY SCREENS ===== */
         @media (max-width: 360px) {
-            .btn { padding: 11px 6px; font-size: .82rem; }
+            .card { padding: 18px 14px 22px; }
+            .product-title { font-size: 1rem; }
+        }
+        @media (max-height: 500px) and (orientation: landscape) {
+            .card { max-width: 500px; padding: 14px 20px; }
+            .product-title { font-size: .95rem; margin-bottom: 10px; }
+            .product-img { aspect-ratio: 4/3; }
         }
 
         @media (prefers-reduced-motion: reduce) {
             .card { animation: none; }
-            .tick  { animation: none; stroke-dashoffset: 0; }
-            .pulse { animation: none; }
-            .step  { animation: none; }
+            .shield-badge { transition: none; }
+            .shield-tick  { animation: none; stroke-dashoffset: 0; }
         }
     </style>
 </head>
 <body>
 
-<div class="card">
-
-    <!-- ======== STEP 0: Main verification screen ======== -->
-    <div class="step active" id="step0">
-
-        <!-- Animated shield checkmark -->
-        <div class="check-wrap" aria-hidden="true">
-            <svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
-                <!-- Shield -->
-                <path class="shield-shape"
-                      d="M50 4 L88 18 L88 54 Q88 82 50 106 Q12 82 12 54 L12 18 Z"/>
-                <!-- Tick -->
-                <path class="tick" d="M34 55 L45 68 L66 40"/>
-            </svg>
-            <div class="pulse"></div>
-        </div>
-
-        <!-- Title -->
-        <h1 class="title">هذا المنتج <span>أصلي 100%</span></h1>
-
-        <!-- Subtitle — matches reference: "Here is the next step for Product Registration" -->
-        <p class="subtitle">هذه هي الخطوة التالية لتسجيل المنتج والحصول على ضمانك الرسمي</p>
-
-        <!-- Two buttons — Register / Cancel -->
-        <div class="btn-group">
-            <button class="btn btn-register" onclick="startRegistration()">تسجيل</button>
-            <button class="btn btn-cancel"   onclick="cancel()">إلغاء</button>
-        </div>
-
+<div class="card" id="card">
+    <!-- Loading state shown while fetching products.json -->
+    <div class="loading-state" id="loadingState">
+        <div class="spinner"></div>
+        Verifying product…
     </div>
-
-    <!-- ======== STEP 1: Name ======== -->
-    <div class="step" id="step1">
-        <div class="step-indicator">
-            <div class="step-dot done"   id="dot0"></div>
-            <div class="step-dot active" id="dot1"></div>
-            <div class="step-dot"        id="dot2"></div>
-            <div class="step-dot"        id="dot3"></div>
-        </div>
-        <p class="form-title">ما اسمك؟</p>
-        <p class="form-subtitle">الخطوة 1 من 3 — الاسم</p>
-        <div class="field-wrap">
-            <label for="inp-name">الاسم الكامل</label>
-            <input id="inp-name" type="text" placeholder="مثال: محمد أحمد" autocomplete="name" inputmode="text" oninput="validateStep1()">
-        </div>
-        <button class="btn-next" id="btn1" onclick="goStep(2)" disabled>التالي</button>
-        <button class="btn-back" onclick="goStep(0)">→ رجوع</button>
-    </div>
-
-    <!-- ======== STEP 2: Phone ======== -->
-    <div class="step" id="step2">
-        <div class="step-indicator">
-            <div class="step-dot done" id="dot0b"></div>
-            <div class="step-dot done" id="dot1b"></div>
-            <div class="step-dot active" id="dot2b"></div>
-            <div class="step-dot"        id="dot3b"></div>
-        </div>
-        <p class="form-title">رقم موبايلك؟</p>
-        <p class="form-subtitle">الخطوة 2 من 3 — رقم الواتساب أو الهاتف</p>
-        <div class="field-wrap">
-            <label for="inp-phone">رقم الهاتف</label>
-            <input id="inp-phone" type="tel" placeholder="01xxxxxxxxx" autocomplete="tel" inputmode="numeric" oninput="validateStep2()">
-        </div>
-        <button class="btn-next" id="btn2" onclick="goStep(3)" disabled>التالي</button>
-        <button class="btn-back" onclick="goStep(1)">→ رجوع</button>
-    </div>
-
-    <!-- ======== STEP 3: Address ======== -->
-    <div class="step" id="step3">
-        <div class="step-indicator">
-            <div class="step-dot done"></div>
-            <div class="step-dot done"></div>
-            <div class="step-dot done"></div>
-            <div class="step-dot active"></div>
-        </div>
-        <p class="form-title">منطقتك أو عنوانك؟</p>
-        <p class="form-subtitle">الخطوة 3 من 3 — المنطقة (اختياري)</p>
-        <div class="field-wrap">
-            <label for="inp-area">المنطقة / المحافظة</label>
-            <input id="inp-area" type="text" placeholder="مثال: القاهرة، الجيزة، الإسكندرية" inputmode="text">
-        </div>
-        <button class="btn-next" onclick="submitForm()">تأكيد التسجيل ✓</button>
-        <button class="btn-back" onclick="goStep(2)">→ رجوع</button>
-    </div>
-
-    <!-- ======== STEP 4: Success ======== -->
-    <div class="step" id="step4">
-        <div class="success-icon">🎉</div>
-        <p class="success-title">تم تسجيلك بنجاح!</p>
-        <p class="success-msg">
-            شكرًا لك. تم تفعيل ضمانك الرسمي.<br>
-            سنتواصل معك على واتساب بمجرد وجود أي عروض أو خدمة صيانة.
-        </p>
-    </div>
-
 </div>
 
 <script>
-    // ===== Navigation between steps =====
-    function goStep(n) {
-        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-        document.getElementById('step' + n).classList.add('active');
-    }
+(function () {
 
-    function startRegistration() {
-        goStep(1);
-        // reset inputs in case user came back
-        document.getElementById('inp-name').value = '';
-        document.getElementById('btn1').disabled = true;
-    }
+    // ── 1. Read ?id= from URL ──────────────────────────────────────────────
+    const params    = new URLSearchParams(window.location.search);
+    const productId = (params.get('id') || '').trim().toUpperCase();
 
-    function cancel() {
-        // Fade card out briefly then back to step 0
-        goStep(0);
-    }
+    // ── 2. Fetch products list ─────────────────────────────────────────────
+    fetch('products.json')
+        .then(r => r.json())
+        .then(products => {
+            const product = products.find(
+                p => p.id.toUpperCase() === productId
+            );
+            product ? renderProduct(product) : renderError(productId);
+        })
+        .catch(() => renderError(productId, true));
 
-    // ===== Validation: unlock Next only when field is filled =====
-    function validateStep1() {
-        const val = document.getElementById('inp-name').value.trim();
-        document.getElementById('btn1').disabled = val.length < 2;
-    }
+    // ── 3. Render: matched product ─────────────────────────────────────────
+    function renderProduct(p) {
+        const card = document.getElementById('card');
 
-    function validateStep2() {
-        const val = document.getElementById('inp-phone').value.trim().replace(/\D/g,'');
-        document.getElementById('btn2').disabled = val.length < 10;
-    }
+        card.innerHTML = `
+            <!-- Title: "This [Name] Is A Genuine Product" -->
+            <h1 class="product-title">This ${escHtml(p.name)} Is A Genuine Product</h1>
 
-    // ===== Final submit =====
-    function submitForm() {
-        const name  = document.getElementById('inp-name').value.trim();
-        const phone = document.getElementById('inp-phone').value.trim();
-        const area  = document.getElementById('inp-area').value.trim();
+            <!-- Product image with shield badge overlaid bottom-right -->
+            <div class="img-container">
+                <img
+                    class="product-img"
+                    src="${escHtml(p.image)}"
+                    alt="${escHtml(p.name)}"
+                    id="prodImg"
+                    decoding="async"
+                >
 
-        // Build a Google Forms / WhatsApp / webhook submission here if needed
-        // For now: log to console and show success
-        console.log('Registration:', { name, phone, area });
+                <!-- Shield with animated checkmark -->
+                <div class="shield-badge" id="shieldBadge" aria-hidden="true">
+                    <svg class="shield-svg" viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Shield body -->
+                        <path class="shield-body"
+                              d="M50 5 L90 20 L90 58 Q90 90 50 110 Q10 90 10 58 L10 20 Z"/>
+                        <!-- Tick -->
+                        <path class="shield-tick" id="tick"
+                              d="M32 60 L45 74 L70 42"/>
+                    </svg>
+                </div>
+            </div>
+        `;
 
-        goStep(4);
+        // Show shield badge + draw tick after image has loaded
+        const img   = document.getElementById('prodImg');
+        const badge = document.getElementById('shieldBadge');
+        const tick  = document.getElementById('tick');
 
-        // Fire small confetti burst on success
-        document.fonts.ready.then(() => {
-            if (typeof confetti === 'function') {
-                confetti({ particleCount: 70, spread: 60, origin: { y: 0.5 },
-                           colors: ['#22c55e','#16a34a','#bbf7d0','#f59e0b'] });
-            }
-        });
-    }
-
-    // ===== Initial confetti on load =====
-    document.fonts.ready.then(() => {
-        if (typeof confetti === 'function') {
-            confetti({ particleCount: 85, spread: 65, origin: { y: 0.6 },
-                       colors: ['#22c55e','#16a34a','#34d399','#f59e0b'] });
+        function showBadge() {
+            badge.classList.add('visible');
+            tick.classList.add('draw');
         }
-    });
+
+        if (img.complete) {
+            // Image already cached
+            setTimeout(showBadge, 80);
+        } else {
+            img.addEventListener('load',  showBadge);
+            img.addEventListener('error', showBadge); // show badge even if img fails
+        }
+    }
+
+    // ── 4. Render: product not found ───────────────────────────────────────
+    function renderError(id, networkErr) {
+        const card = document.getElementById('card');
+        const msg  = networkErr
+            ? 'Could not load product data. Please check your connection and try again.'
+            : id
+                ? `No product found with ID <span class="error-id">${escHtml(id)}</span>. Please check the QR code or contact the store.`
+                : 'No product ID provided. Please scan the QR code on your product.';
+
+        card.innerHTML = `
+            <div class="error-state">
+                <div class="error-icon">⚠️</div>
+                <p class="error-title">Product Not Found</p>
+                <p class="error-msg">${msg}</p>
+            </div>
+        `;
+    }
+
+    // ── Helper: escape HTML to prevent XSS ────────────────────────────────
+    function escHtml(str) {
+        return String(str)
+            .replace(/&/g,'&amp;')
+            .replace(/</g,'&lt;')
+            .replace(/>/g,'&gt;')
+            .replace(/"/g,'&quot;');
+    }
+
+})();
 </script>
 
 </body>
