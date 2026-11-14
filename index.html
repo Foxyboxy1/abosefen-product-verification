@@ -2,100 +2,360 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>هذا المنتج أصلي 100% | تأكيد الأصالة والجودة</title>
-    <!-- Google Fonts: Cairo -->
+    <!-- ✅ FIX: viewport with shrink-to-fit + user-scalable for older iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <!-- ✅ FIX: Proper Open Graph / share preview for WhatsApp and social -->
+    <meta name="description" content="تأكيد رسمي: هذا المنتج أصلي 100% ومعتمد من أبو سيفين.">
+    <meta property="og:title" content="هذا المنتج أصلي 100%">
+    <meta property="og:description" content="تم التحقق من أصالة وجودة هذا المنتج رسمياً.">
+    <meta property="og:type" content="website">
+    <!-- ✅ FIX: Theme color for browser chrome on mobile -->
+    <meta name="theme-color" content="#0f172a">
+    <!-- ✅ FIX: Preload critical font to prevent FOUT (flash of unstyled text) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Canvas Confetti -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome - defer non-critical -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
+    <!-- Canvas Confetti - async -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js" async></script>
+    <title>هذا المنتج أصلي 100% | أبو سيفين</title>
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --green: #10b981;
+            --green-dark: #059669;
+            --green-bg: #ecfdf5;
+            --green-text: #065f46;
+            --bg-dark: #0b1120;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: #e2e8f0;
+            --radius-card: 28px;
+            --shadow: 0 20px 60px -15px rgba(0,0,0,0.3), 0 0 40px rgba(16,185,129,0.12);
+        }
+
+        /* ===== RESET ===== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ===== BASE ===== */
+        html {
+            /* ✅ FIX: prevent font inflation on mobile */
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at 50% 20%, #1a2744 0%, var(--bg-dark) 100%);
+            min-height: 100vh;
+            /* ✅ FIX: use dvh for mobile browsers with address bar */
+            min-height: 100dvh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* ✅ FIX: safe area padding for iPhone notch / home bar */
+            padding: max(20px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom));
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* ===== BACKGROUND GLOWS ===== */
+        .bg-glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
+            /* ✅ FIX: use % sizing so they scale on small screens */
+            width: 60vw;
+            height: 60vw;
+            max-width: 400px;
+            max-height: 400px;
+        }
+        .bg-glow-1 { background: rgba(16,185,129,0.25); top: 0; right: 0; }
+        .bg-glow-2 { background: rgba(14,165,233,0.15); bottom: 0; left: 0; }
+
+        /* ===== CARD ===== */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-card);
+            /* ✅ FIX: responsive padding using clamp */
+            padding: clamp(24px, 6vw, 44px) clamp(18px, 5vw, 32px);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255,255,255,0.8);
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            animation: slideUp 0.7s cubic-bezier(0.16,1,0.3,1) both;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(32px) scale(0.96); }
+            to   { opacity: 1; transform: translateY(0)   scale(1); }
+        }
+
+        /* ===== BADGE ===== */
+        .seal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--green-bg);
+            color: var(--green-dark);
+            font-size: clamp(0.78rem, 2.5vw, 0.9rem);
+            font-weight: 700;
+            padding: 7px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(16,185,129,0.3);
+            margin-bottom: 24px;
+        }
+
+        /* ===== CHECKMARK ===== */
+        .checkmark-wrap {
+            position: relative;
+            /* ✅ FIX: responsive size */
+            width: clamp(90px, 25vw, 120px);
+            height: clamp(90px, 25vw, 120px);
+            margin: 0 auto 20px;
+        }
+
+        .checkmark-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 6px 14px rgba(16,185,129,0.3));
+        }
+
+        .ck-bg   { fill: var(--green-bg); }
+        .ck-ring {
+            fill: none; stroke: var(--green); stroke-width: 6;
+            stroke-dasharray: 280; stroke-dashoffset: 280;
+            animation: drawRing 0.9s cubic-bezier(0.65,0,0.45,1) 0.1s forwards;
+        }
+        .ck-tick {
+            fill: none; stroke: var(--green); stroke-width: 7.5;
+            stroke-linecap: round; stroke-linejoin: round;
+            stroke-dasharray: 80; stroke-dashoffset: 80;
+            animation: drawTick 0.6s cubic-bezier(0.65,0,0.45,1) 0.8s forwards;
+        }
+
+        @keyframes drawRing { to { stroke-dashoffset: 0; } }
+        @keyframes drawTick { to { stroke-dashoffset: 0; } }
+
+        .pulse-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 3px solid var(--green);
+            opacity: 0;
+            animation: pulse 2.5s ease-out 1.2s infinite;
+        }
+        @keyframes pulse {
+            0%   { transform: scale(0.9); opacity: 0.7; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        /* ===== TITLE ===== */
+        .main-title {
+            /* ✅ FIX: fluid font size using clamp */
+            font-size: clamp(1.6rem, 6vw, 2.2rem);
+            font-weight: 900;
+            color: var(--green-text);
+            line-height: 1.25;
+            margin-bottom: 10px;
+            /* ✅ FIX: allow line break on tiny screens */
+            word-break: break-word;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: clamp(0.88rem, 2.8vw, 1rem);
+            line-height: 1.7;
+            margin-bottom: 26px;
+        }
+
+        /* ===== GUARANTEE BOX ===== */
+        .guarantee-box {
+            background: #f8fafc;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            padding: clamp(14px, 4vw, 20px);
+            margin-bottom: 22px;
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .g-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* ✅ FIX: icon doesn't shrink on tiny screens */
+        .g-icon {
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            border-radius: 11px;
+            background: var(--green-bg);
+            color: var(--green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+        }
+
+        .g-text h4 {
+            font-size: clamp(0.88rem, 2.8vw, 0.97rem);
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 2px;
+        }
+        .g-text p {
+            font-size: clamp(0.78rem, 2.4vw, 0.84rem);
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* ===== STATUS PILL ===== */
+        .status-pill {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 14px 18px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            font-size: clamp(0.95rem, 3vw, 1.05rem);
+            font-weight: 800;
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(16,185,129,0.3);
+            margin-bottom: 20px;
+        }
+
+        /* ===== FOOTER ===== */
+        .card-footer {
+            border-top: 1px solid #f1f5f9;
+            padding-top: 16px;
+            font-size: clamp(0.78rem, 2.3vw, 0.85rem);
+            color: #94a3b8;
+            text-align: center;
+        }
+        .card-footer i { color: var(--green); margin-left: 4px; }
+
+        /* ===== SCREENS: 360px (small Android) ===== */
+        @media (max-width: 360px) {
+            .card { border-radius: 20px; }
+            .seal-badge { font-size: 0.72rem; padding: 6px 12px; }
+        }
+
+        /* ===== SCREENS: landscape phones ===== */
+        @media (max-height: 500px) and (orientation: landscape) {
+            body { align-items: flex-start; padding-top: 16px; }
+            .checkmark-wrap { width: 70px; height: 70px; margin-bottom: 12px; }
+            .main-title { font-size: 1.4rem; }
+            .guarantee-box { gap: 10px; }
+        }
+
+        /* ===== REDUCED MOTION ===== */
+        @media (prefers-reduced-motion: reduce) {
+            .card { animation: none; }
+            .ck-ring, .ck-tick { animation: none; stroke-dashoffset: 0; }
+            .pulse-ring { animation: none; opacity: 0; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Background Glow Effects -->
-    <div class="bg-glow bg-glow-1"></div>
-    <div class="bg-glow bg-glow-2"></div>
 
-    <main class="main-container">
-        <!-- Verification Card -->
-        <div class="card verification-card">
-            
-            <!-- Security Header Badge -->
-            <div class="security-seal">
-                <i class="fa-solid fa-shield-check"></i>
-                <span>شهادة فحص وتأكيد معتمدة</span>
-            </div>
+    <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
 
-            <!-- Animated Green Checkmark -->
-            <div class="checkmark-wrapper">
-                <svg class="checkmark-svg" viewBox="0 0 100 100">
-                    <circle class="checkmark-circle-bg" cx="50" cy="50" r="44"></circle>
-                    <circle class="checkmark-circle" cx="50" cy="50" r="44"></circle>
-                    <path class="checkmark-check" d="M28 52 L43 67 L72 35"></path>
-                </svg>
-                <div class="pulse-ring"></div>
-            </div>
+    <!-- ✅ FIX: proper semantic role for screen readers -->
+    <main class="card" role="main" aria-label="شهادة تأكيد أصالة المنتج">
 
-            <!-- Main Title Requested by User -->
-            <h1 class="main-title">هذا المنتج أصلي 100%</h1>
-            
-            <p class="subtitle">
-                شكرًا لثقتكم بنا. نؤكد لكم أن هذا المنتج أصلي ومعتمد ومطابق لأعلى معايير الجودة والمواصفات الرسمية.
-            </p>
-
-            <!-- Verification Guarantee Box -->
-            <div class="guarantee-box">
-                <div class="guarantee-item">
-                    <div class="icon-circle"><i class="fa-solid fa-medal"></i></div>
-                    <div class="guarantee-text">
-                        <h4>جودة أصلية مضمونة</h4>
-                        <p>مصنوع ومستورد من المصادر الرسمية المعتمدة</p>
-                    </div>
-                </div>
-
-                <div class="guarantee-item">
-                    <div class="icon-circle"><i class="fa-solid fa-lock"></i></div>
-                    <div class="guarantee-text">
-                        <h4>حماية تامة من التقليد</h4>
-                        <p>تم اجتياز جميع معايير الفحص والرقابة</p>
-                    </div>
-                </div>
-
-                <div class="guarantee-item">
-                    <div class="icon-circle"><i class="fa-solid fa-handshake-angle"></i></div>
-                    <div class="guarantee-text">
-                        <h4>ضمان ورعاية العملاء</h4>
-                        <p>نلتزم بتقديم أفضل تجربة شراء ودعم لعملائنا</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Verification Status Pill -->
-            <div class="verified-status-pill">
-                <i class="fa-solid fa-circle-check"></i>
-                <span>تم التحقق والاعتماد بنجاح</span>
-            </div>
-
-            <!-- Card Footer -->
-            <div class="card-footer">
-                <span><i class="fa-solid fa-shield-halved"></i> تم الفحص بواسطة نظام التأكيد المعتمد</span>
-            </div>
-
+        <!-- Badge -->
+        <div class="seal-badge">
+            <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+            <span>شهادة فحص وتأكيد معتمدة</span>
         </div>
+
+        <!-- Animated Checkmark -->
+        <div class="checkmark-wrap" aria-hidden="true">
+            <svg class="checkmark-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle class="ck-bg"   cx="50" cy="50" r="44"/>
+                <circle class="ck-ring" cx="50" cy="50" r="44"/>
+                <path   class="ck-tick" d="M28 52 L43 67 L72 35"/>
+            </svg>
+            <div class="pulse-ring"></div>
+        </div>
+
+        <!-- Title -->
+        <h1 class="main-title">هذا المنتج أصلي 100%</h1>
+
+        <p class="subtitle">
+            شكرًا لثقتكم بنا. نؤكد أن هذا المنتج أصلي ومعتمد ومطابق لأعلى معايير الجودة والمواصفات الرسمية.
+        </p>
+
+        <!-- Guarantees -->
+        <div class="guarantee-box">
+            <div class="g-item">
+                <div class="g-icon"><i class="fa-solid fa-medal" aria-hidden="true"></i></div>
+                <div class="g-text">
+                    <h4>جودة أصلية مضمونة</h4>
+                    <p>مصنوع ومستورد من المصادر الرسمية المعتمدة</p>
+                </div>
+            </div>
+            <div class="g-item">
+                <div class="g-icon"><i class="fa-solid fa-lock" aria-hidden="true"></i></div>
+                <div class="g-text">
+                    <h4>حماية تامة من التقليد</h4>
+                    <p>اجتاز جميع معايير الفحص والرقابة بنجاح</p>
+                </div>
+            </div>
+            <div class="g-item">
+                <div class="g-icon"><i class="fa-solid fa-handshake-angle" aria-hidden="true"></i></div>
+                <div class="g-text">
+                    <h4>ضمان ورعاية العملاء</h4>
+                    <p>نلتزم بأفضل تجربة شراء ودعم كامل لعملائنا</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Pill -->
+        <div class="status-pill" role="status" aria-live="polite">
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            <span>تم التحقق والاعتماد بنجاح</span>
+        </div>
+
+        <!-- Footer -->
+        <footer class="card-footer">
+            <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+            تم الفحص بواسطة نظام التأكيد المعتمد &bull; أبو سيفين
+        </footer>
+
     </main>
 
     <script>
-        // Trigger celebratory confetti on load
-        window.addEventListener('DOMContentLoaded', () => {
-            if (typeof confetti !== 'undefined') {
+        // ✅ FIX: Wait for fonts & icons before firing confetti so layout is stable
+        document.fonts.ready.then(() => {
+            if (typeof confetti === 'function') {
                 confetti({
-                    particleCount: 80,
-                    spread: 75,
-                    origin: { y: 0.55 },
-                    colors: ['#10b981', '#059669', '#34d399', '#f59e0b', '#10b981']
+                    particleCount: 90,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#10b981', '#34d399', '#059669', '#f59e0b', '#6ee7b7']
                 });
             }
         });
