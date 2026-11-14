@@ -353,10 +353,9 @@
 
         // Initialize on load
         window.addEventListener('DOMContentLoaded', () => {
-            // Check if loaded locally
-            if (window.location.protocol === 'file:') {
-                const landingPath = window.location.href.replace('print-qr-sticker.html', 'index.html');
-                pageUrlInput.value = landingPath;
+            // Default directly to the live GitHub Pages URL
+            if (!pageUrlInput.value) {
+                pageUrlInput.value = "https://foxyboxy1.github.io/abosefen-product-verification/";
             }
             updateQR();
         });
